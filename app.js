@@ -3,6 +3,7 @@ let minutes=0;
 let seconds=0;
 let state="A.M.";
 let id=null;
+let clock_state="off";
 const maindiv=document.getElementById('maindiv');
 maindiv.innerHTML="0" +hours+ " : " + "0" +minutes+ " : " + "0" +seconds+ " " +state;
 
@@ -15,6 +16,7 @@ function clock()
     }
     seconds+=1
     id = setInterval(() => {
+        clock_state="on";
         if(hours>=0 && hours<12)
         {
             state="A.M.";
@@ -43,6 +45,22 @@ function clock()
 }
 function stopclock()
 {
+
+    clearInterval(id);
+    clock_state="off";
+    id=null;
+    // hours=0;
+    // minutes=0;
+    // seconds=0;
+    // state="A.M.";
+    maindiv.innerHTML=hours+" : "+minutes+" : "+ seconds+" "+state;
+}
+function reset()
+{
+    if(hours==0 && minutes==0 && seconds==0 && state=="A.M")
+    {
+        return;
+    }
     clearInterval(id);
     id=null;
     hours=0;
@@ -50,8 +68,9 @@ function stopclock()
     seconds=0;
     state="A.M.";
     maindiv.innerHTML=hours+" : "+minutes+" : "+ seconds+" "+state;
+    // clock();
 }
-function reset()
+function reboot()
 {
     if(hours==0 && minutes==0 && seconds==0 && state=="A.M")
     {
